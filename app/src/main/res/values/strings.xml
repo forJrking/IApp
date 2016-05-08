@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">应用锁</string>
+    <string name="action_settings">设置</string>
+    <string name="sample_device_admin_description">应用锁服务</string>
+    <string name="sample_device_admin">应用锁服务</string>
+    <string name="accessibility_service_description">仅可对应用程序加锁,无任何附加权限。</string>
+    <string name="action_about">关于</string>
+    <string name="action_exit">退出</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="agree_exit">确定要退出吗?</string>
+    <string name="agree">确定</string>
+    <string name="disagree">取消</string>
+    <string name="click_to_exit">再按一次退出程序</string>
+    <string name="current_version">当前版本</string>
+    <string name="open_source_url">项目开源主页</string>
+    <string name="open_source_url_content">敬请期待</string>
+    <string name="about_author">关于作者</string>
+    <string name="about_copyright"><![CDATA[Copyright © 2015–2016 Jrking]]></string>
+    <string name="advice_feedback">意见反馈</string>
+    <string name="advice_feedback_content">向作者发送电子邮件</string>
+    <string name="open_in_app_store">去商店评分</string>
+    <string name="open_in_app_store_content">觉得赞就给个好评吧</string>
+
+    <array name="tab">
+        <item>未加锁应用</item>
+        <item>已加锁应用</item>
+    </array>
+</resources>

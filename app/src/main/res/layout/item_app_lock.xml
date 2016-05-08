@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/item_rl"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants"
+                android:paddingBottom="8dp"
+                android:elevation="3dp"
+                android:paddingLeft="8dp"
+                android:background="@drawable/item_bg"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp">
+
+    <ImageView
+        android:id="@+id/item_applock_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher"/>
+
+    <ImageView
+        android:id="@+id/item_applock_lock"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/app_lock_item_selector"/>
+
+    <TextView
+        android:id="@+id/item_applock_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="6dp"
+        android:layout_toLeftOf="@id/item_applock_lock"
+        android:layout_toRightOf="@id/item_applock_icon"
+        android:singleLine="true"
+        android:text="App"
+        android:textSize="16sp"/>
+
+</RelativeLayout>
