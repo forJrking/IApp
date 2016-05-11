@@ -14,9 +14,14 @@ import java.util.List;
 
 public class AppUtil {
 
-    public static List<AppInfo> getAllapps(Context context) {
+    private static List<AppInfo> infos;
 
-        List<AppInfo> infos = new ArrayList<AppInfo>();
+    public static List<AppInfo> getAllApp(Context context) {
+        if (infos == null) {
+            infos = new ArrayList<>();
+        } else {
+            infos.clear();
+        }
 
         PackageManager pm = context.getPackageManager();
         // pm.getApplicationLogo(info);
@@ -29,11 +34,12 @@ public class AppUtil {
             Drawable icon = info.loadIcon(pm);
             // 应用大小
             String dir = info.sourceDir;
+
             File file = new File(dir);
             // 文件大小
             long size = file.length();
+            //包名
             String packageName = info.packageName;
-
             // 判断系统程序与否
             boolean isSystem = false;
             if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == ApplicationInfo.FLAG_SYSTEM) {
@@ -49,7 +55,7 @@ public class AppUtil {
 
             // 进程id
             int uid = info.uid;
-            if (!isSystem && !packageName.equals("com.jrking.lock"))
+            if (SPUtils.getBoolean(context, SPUtils.SYSTEMAPP) ? isSystem : !isSystem && !packageName.equals("com.king.applock"))
                 infos.add(new AppInfo(uid, packageName, lable, icon, size, isSystem, isStorage));
 
         }

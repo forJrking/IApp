@@ -5,9 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -26,6 +24,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.king.applock.R;
@@ -33,7 +34,7 @@ import com.king.applock.adapter.AppLockReAdapter;
 import com.king.applock.base.AppController;
 import com.king.applock.bean.AppInfo;
 import com.king.applock.dao.AppLockDao;
-import com.king.applock.service.WatchDogService2;
+import com.king.applock.service.WatchDogService;
 import com.king.applock.utils.AppUtil;
 import com.king.applock.utils.RefreshLayoutUtils;
 import com.king.applock.utils.ServiceUtil;
@@ -41,18 +42,30 @@ import com.king.applock.utils.ThreadTask;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener, AppLockReAdapter.OnDataChangeListener, TabLayout.OnTabSelectedListener {
+        implements SwipeRefreshLayout.OnRefreshListener, AppLockReAdapter.OnDataChangeListener, TabLayout.OnTabSelectedListener {
 
 
+    @Bind(R.id.main_nav_tv_running)
+    TextView mMainNavTvRunning;
+
+    @Bind(R.id.main_nav_btn_theme_dark)
+    ImageView mMainNavBtnThemeDark;
+    @Bind(R.id.rl_bg)
+    RelativeLayout mRlBg;
     private Toolbar mToolbar;
     private TabLayout mTab;
     private RecyclerView mRecyclerView;
     private SwipeRefreshLayout mRefreshLayout;
     private FloatingActionButton mFab;
-    private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
 
     private String[] mTitles;
@@ -61,26 +74,34 @@ public class MainActivity extends AppCompatActivity
     private List<AppInfo> mUnLockInfos = new ArrayList<>();
 
     private List<AppInfo> mLockedInfos = new ArrayList<>();
+
     private TabLayout.Tab mTab1, mTab2;
     private AppLockDao mDao;
     private AppLockReAdapter mAdapter;
     //临时解决
     private boolean mIsRefreshing = false;
 
+    // 是否启用夜间模式
+    private boolean enableThemeDark;
+
+    private static final int REQUEST_CODE_ENABLE = 11;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //enableThemeDark = ThemeUtils.configThemeBeforeOnCreate(this, R.style.AppThemeLight_FitsStatusBar, R.style.AppThemeDark_FitsStatusBar);
         setContentView(R.layout.activity_main);
+        AppController.setMainContext(this);
+        ButterKnife.bind(this);
         statusBar();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mTab = (TabLayout) findViewById(R.id.tab_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.main_recycler_view);
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_refresh_layout);
         mFab = (FloatingActionButton) findViewById(R.id.fab);
-        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.red_light));
         setSupportActionBar(mToolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -88,7 +109,6 @@ public class MainActivity extends AppCompatActivity
 
         mDrawerLayout.setDrawerListener(toggle);
         toggle.syncState();
-        mNavigationView.setNavigationItemSelectedListener(this);
 
 
         mTab1 = mTab.newTab();
@@ -141,11 +161,30 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        boolean runing = ServiceUtil.isServiceRuning(MainActivity.this, WatchDogService2.class);
-        mFab.setImageResource(runing ? R.mipmap.lock_open : R.mipmap.lock_close);
-        //mTvTask.setText(runing ? "加锁服务运行中" : "加锁服务关闭");
-    }
 
+        boolean runing = ServiceUtil.isServiceRuning(MainActivity.this, WatchDogService.class);
+        mFab.setImageResource(runing ? R.mipmap.lock_open : R.mipmap.lock_close);
+        mMainNavTvRunning.setText(runing ? "加锁服务运行中" : "加锁服务关闭");
+        Calendar calendar = Calendar.getInstance();
+        int time = calendar.get(Calendar.HOUR_OF_DAY);
+        if (time > 6 && time < 19) {
+            mMainNavBtnThemeDark.setImageResource(R.mipmap.ic_wb_sunny_white_24dp);
+        } else {
+            mMainNavBtnThemeDark.setImageResource(R.mipmap.ic_brightness_3_white_24dp);
+            Random random = new Random();
+            switch (random.nextInt(3)) {
+                case 0:
+                    mRlBg.setBackgroundResource(R.mipmap.bg_1);
+                    break;
+                case 1:
+                    mRlBg.setBackgroundResource(R.mipmap.bg_2);
+                    break;
+                case 2:
+                    mRlBg.setBackgroundResource(R.mipmap.bg_3);
+                    break;
+            }
+        }
+    }
 
     private void initFab() {
 
@@ -161,7 +200,7 @@ public class MainActivity extends AppCompatActivity
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ServiceUtil.isServiceRuning(MainActivity.this, WatchDogService2.class)) {
+                if (ServiceUtil.isServiceRuning(MainActivity.this, WatchDogService.class)) {
                     Snackbar.make(view, "长按关闭服务,关闭程序锁", Snackbar.LENGTH_SHORT)
                             .setAction(R.string.agree, new View.OnClickListener() {
                                 @Override
@@ -193,6 +232,37 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    @OnClick({
+            R.id.main_nav_btn_theme,
+            R.id.main_nav_btn_setting,
+            R.id.main_nav_btn_about
+    })
+    public void onNavigationItemOtherClick(View itemView) {
+        switch (itemView.getId()) {
+            case R.id.main_nav_btn_theme:
+                Toast.makeText(MainActivity.this, "功能开发测试中,尽快加入此功能", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.main_nav_btn_setting:
+                AppController.getMainThreadHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                    }
+                }, 400);
+                break;
+            case R.id.main_nav_btn_about:
+                AppController.getMainThreadHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(MainActivity.this, AboutActivity.class));
+                    }
+                }, 400);
+                break;
+        }
+        mDrawerLayout.closeDrawers();
+    }
+
+
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
         Window win = getWindow();
@@ -217,10 +287,15 @@ public class MainActivity extends AppCompatActivity
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-
+                AppController.getMainThreadHandler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                    }
+                }, 400);
                 break;
             case R.id.action_about:
-                new Handler().postDelayed(new Runnable() {
+                AppController.getMainThreadHandler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         startActivity(new Intent(getApplicationContext(), AboutActivity.class));
@@ -236,6 +311,7 @@ public class MainActivity extends AppCompatActivity
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
+                                finish();
                                 System.exit(0);
                             }
                         })
@@ -244,12 +320,6 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-        return true;
     }
 
     // 首次按下返回键时间戳
@@ -285,7 +355,7 @@ public class MainActivity extends AppCompatActivity
 
                 List<String> packages = mDao.query();
                 // 获取所有app的集合
-                List<AppInfo> allApps = AppUtil.getAllapps(MainActivity.this);
+                List<AppInfo> allApps = AppUtil.getAllApp(MainActivity.this);
 
                 for (String packageName : packages) {
                     // 循环添加锁的app加对象
@@ -366,6 +436,24 @@ public class MainActivity extends AppCompatActivity
             return true;
         } else {
             return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ThreadTask.getInstance().shutDownAll();
+        ButterKnife.unbind(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_CODE_ENABLE:
+                //成功进入界面
+
+                break;
         }
     }
 }

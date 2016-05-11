@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="typefaceview-1.3.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/build/intermediates/exploded-aar/com.github.omadahealth.typefaceview/typefaceview/1.3.0/res" />
+      <root url="jar://$PROJECT_DIR$/build/intermediates/exploded-aar/com.github.omadahealth.typefaceview/typefaceview/1.3.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.omadahealth.typefaceview/typefaceview/1.3.0/77bf0c974f5c0e6c65c323a70f5e5aa9318aaf9e/typefaceview-1.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

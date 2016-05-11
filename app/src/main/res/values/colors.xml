@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#3F51B5</color>
+    <color name="colorPrimary">#03A9F4</color>
+    <color name="colorPrimaryDark">#0288D1</color>
+    <color name="colorAccent">#00BCD4</color>
 
     <color name="window_background_light">#ffeeeeee</color>
     <color name="window_background_dark">#ff303030</color>
@@ -25,8 +25,8 @@
     <color name="selectable_item_background_general_dark_accent">#ff666666</color>
 
     <color name="fab_color_primary">@color/colorAccent</color>
-    <color name="fab_color_primary_dark">#303F9F</color>
-    <color name="fab_color_accent">#99ffffff</color>
+    <color name="fab_color_primary_dark">@color/colorPrimaryDark</color>
+    <color name="fab_color_accent">@color/colorAccent</color>
 
     <color name="red_light">#ffff4444</color>
     <color name="green_light">#ff99cc00</color>
@@ -36,4 +36,10 @@
     <color name="button_stroke_solid_normal">#ffffffff</color>
     <color name="button_stroke_solid_pressed">#ffeeeeee</color>
     <color name="button_stroke_solid_accent">#3301ee15</color>
+    <color name="black">#ff000000</color>
+
+    <drawable name="key_normal_color">#fcfcfc</drawable>
+    <drawable name="key_selected_color">#b8bcc0</drawable>
+    <drawable name="opkey_selected_color">#cbcfd5</drawable>
+    <drawable name="keyboard_bg_color">#acb3b6</drawable>
 </resources>

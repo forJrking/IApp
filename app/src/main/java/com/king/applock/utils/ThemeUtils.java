@@ -35,7 +35,7 @@ public final class ThemeUtils {
     }
 
     public static boolean configThemeBeforeOnCreate(Activity activity, @StyleRes int light, @StyleRes int dark) {
-        boolean enable = SettingShared.isEnableThemeDark(activity);
+        boolean enable = false;
         activity.setTheme(enable ? dark : light);
         return enable;
     }

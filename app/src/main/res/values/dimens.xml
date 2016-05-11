@@ -1,7 +1,7 @@
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="nav_header_vertical_spacing">16dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_height">180dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
@@ -15,5 +15,7 @@
     <dimen name="shadow_gap_margin_fill">6dp</dimen>
 
     <dimen name="button_corner_radius">2dp</dimen>
-
+    <dimen name="width_input_tv_cutline">1dip</dimen>
+    <dimen name="key_height">58dip</dimen>
+    <dimen name="keyboard_height">230dip</dimen>
 </resources>

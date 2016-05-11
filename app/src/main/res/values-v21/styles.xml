@@ -5,6 +5,7 @@
     <style name="AppThemeLight" parent="BaseAppThemeLight">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="AppThemeLight.FitsStatusBar">

@@ -21,6 +21,37 @@
     <string name="advice_feedback_content">向作者发送电子邮件</string>
     <string name="open_in_app_store">去商店评分</string>
     <string name="open_in_app_store_content">觉得赞就给个好评吧</string>
+    <string name="theme">主题</string>
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="lockSmart">锁屏智能锁</string>
+    <string name="cust_set">基本设置</string>
+    <string name="lockSmart_summary">锁屏后对应用重新加锁(建议开启)</string>
+    <string name="systemApp">系统应用锁</string>
+    <string name="systemApp_summary">在加锁列表中是否显示系统应用</string>
+    <string name="theme_dark">夜间主题</string>
+    <string name="pwd">密码管理</string>
+    <string name="new_pwd_stytle">密码锁样式</string>
+    <string name="new_pwd_stytle_summary">选择解密界面样式</string>
+    <string name="pwd_tip">数字密码</string>
+    <string name="rePwd">重新设置密码</string>
+    <string name="rePwdL">自定义密码长度</string>
+    <string name="title">找回密码</string>
+    <string name="dialog_accept">确定</string>
+    <string name="dialog_decline">取消</string>
+    <string name="dialog_content">找回功能此版本还未加入或者加Wechat jrkinglove获取超级管理员密码.</string>
+    <string name="lockStyle">解锁样式</string>
+    <string name="chose">选择</string>
+    <string name="commset">高级设置</string>
+    <string name="ad">广告条</string>
+    <string name="ad_summy">支持开发者,进行捐赠或者点击广告条</string>
+    <string name="forgot">忘记密码</string>
+    <string name="forgotDetail">向开发者索要超级管理员密钥解锁,QQ:891378434</string>
+
+    <string-array name="stytleItems">
+        <item>数字密码</item>
+        <item>手势密码</item>
+    </string-array>
 
     <array name="tab">
         <item>未加锁应用</item>
