@@ -12,9 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <TextView
-            style="@style/TitleBarStyle"
-            android:text="程序锁"/>
+            android:id="@+id/toolbar"
+            style="@style/TitleBarStyle"/>
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -74,7 +74,7 @@ public class LockScreenActivity extends AppLockActivity {
         mPackName = intent.getStringExtra("toLock");
         mIntExtra = intent.getIntExtra(AppLock.EXTRA_TYPE, AppLock.DISABLE_PINLOCK);
 
-        System.out.println("包名" + mPackName + "mIntExtra" + mIntExtra);
+//        System.out.println("包名" + mPackName + "mIntExtra" + mIntExtra);
         // 获取图标
         if (mIntExtra == AppLock.UNLOCK_PIN) {
             //HOME的处理
@@ -88,16 +88,21 @@ public class LockScreenActivity extends AppLockActivity {
             }
 
             AppInfo info = AppUtil.getAppInfoByPackage(LockScreenActivity.this, mPackName);
-            if (info != null)
+            if (info != null) {
                 setDrawable(info.icon);
+                mToolbar.setText(info.lable);
+            }
+        } else {
+            mToolbar.setText(R.string.app_name);
+            setDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
         }
-
     }
 
     @Override
     protected void onDestroy() {
         if (mReceiver != null)
             unregisterReceiver(mReceiver);
+
         super.onDestroy();
     }
 
@@ -143,7 +148,7 @@ public class LockScreenActivity extends AppLockActivity {
                 .onAny(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(MaterialDialog dialog, DialogAction which) {
-                        if (which.name().equals("确定")){
+                        if (which.name().equals("确定")) {
 
                         }
                     }
@@ -173,6 +178,12 @@ public class LockScreenActivity extends AppLockActivity {
             intent.setAction("com.king.verify");
             sendBroadcast(intent);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }
 

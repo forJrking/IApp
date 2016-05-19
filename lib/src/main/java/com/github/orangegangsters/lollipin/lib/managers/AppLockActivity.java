@@ -49,7 +49,7 @@ public abstract class AppLockActivity extends PinActivity implements KeyboardBut
     protected String mOldPinCode;
     private ImageView mLogoImage;
     private boolean isHome = false;
-
+    protected TextView mToolbar;
     /**
      * First creation
      */
@@ -86,7 +86,7 @@ public abstract class AppLockActivity extends PinActivity implements KeyboardBut
         mOldPinCode = "";
 
         mLockManager.getAppLock().setPinChallengeCancelled(false);
-
+        mToolbar = (TextView) findViewById(R.id.toolbar);
         mStepTextView = (TextView) this.findViewById(R.id.pin_code_step_textview);
         mPinCodeRoundView = (PinCodeRoundView) this.findViewById(R.id.pin_code_round_view);
         mPinCodeRoundView.setPinLength(this.getPinLength());
