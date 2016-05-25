@@ -7,7 +7,7 @@
     android:layout_gravity="start"
     android:background="?attr/widgetBackground"
     android:scrollbars="none"
-    app:appInsetForeground="#44000000">
+    app:appInsetForeground="#4000">
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,7 +19,7 @@
             android:id="@+id/rl_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/nav_header_height"
-            android:background="@mipmap/background_drawer_header">
+            android:background="@mipmap/wallpaper">
 
 
             <LinearLayout
@@ -73,7 +73,8 @@
 
         </RelativeLayout>
 
-        <View style="@style/AppWidget.NavigationItemDeepLineGap"/>
+        <View style="@style/AppWidget.NavigationItemDeepLineGap"
+              android:layout_marginTop="8dp"/>
 
 
         <TextView android:id="@+id/main_nav_btn_theme"
@@ -92,8 +93,6 @@
                   android:drawableLeft="@mipmap/ic_info_grey600_24dp"
                   android:text="@string/about"/>
 
-        <View style="@style/AppWidget.ItemGap"/>
-        <!--广告-->
         <View style="@style/AppWidget.NavigationItemDeepLineGap"/>
     </LinearLayout>
 </com.king.applock.view.ScrimInsetsScrollView>

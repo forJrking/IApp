@@ -52,14 +52,14 @@ public class AppUtil {
             if ((info.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
                 isStorage = true;
             }
-
             // 进程id
             int uid = info.uid;
-            if (SPUtils.getBoolean(context, SPUtils.SYSTEMAPP) ? isSystem : !isSystem && !packageName.equals("com.king.applock"))
+            if (SPUtils.getBoolean(context, SPUtils.SYSTEMAPP) ? isSystem && isSuport(lable) : !isSystem && !packageName.equals("com.king.applock"))
                 infos.add(new AppInfo(uid, packageName, lable, icon, size, isSystem, isStorage));
 
         }
 
+        // Collections.sort(infos);
         return infos;
     }
 
@@ -91,5 +91,22 @@ public class AppUtil {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static boolean isSuport(String str) {
+        str = str.replace(" ", "");
+
+        if (str.contains("com.")) {
+            return false;
+        }
+
+        if (str.matches("^[a-zA-Z]*")) {
+            return false;
+        }
+
+//        if(str.contains("系统")){
+//            return false;
+//        }
+        return true;
     }
 }

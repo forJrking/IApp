@@ -132,8 +132,8 @@
     </style>
 
     <style name="AppWidget.NavigationItemDeepLineGap" parent="AppWidget.DeepLine">
-        <item name="android:layout_marginTop">8dp</item>
-        <item name="android:layout_marginBottom">8dp</item>
+        <!--<item name="android:layout_marginTop">8dp</item>-->
+        <!--<item name="android:layout_marginBottom">8dp</item>-->
     </style>
 
     <!-- Button -->

@@ -174,13 +174,8 @@ public class MainActivity extends AppCompatActivity
             Random random = new Random();
             switch (random.nextInt(3)) {
                 case 0:
-                    mRlBg.setBackgroundResource(R.mipmap.bg_1);
-                    break;
                 case 1:
-                    mRlBg.setBackgroundResource(R.mipmap.bg_2);
-                    break;
-                case 2:
-                    mRlBg.setBackgroundResource(R.mipmap.bg_3);
+                    mRlBg.setBackgroundResource(R.mipmap.bg_1);
                     break;
             }
         }

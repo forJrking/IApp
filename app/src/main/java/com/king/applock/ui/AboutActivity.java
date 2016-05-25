@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.ClipboardManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,8 +14,6 @@ import com.king.applock.R;
 import com.king.applock.base.StatusBarActivity;
 import com.king.applock.listener.NavigationFinishClickListener;
 import com.king.applock.utils.ShipUtils;
-
-import java.util.Random;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,8 +26,8 @@ public class AboutActivity extends StatusBarActivity {
     TextView mAboutTvVersion;
     @Bind(R.id.about_btn_about_power)
     LinearLayout mAboutBtnAboutPower;
-    @Bind(R.id.about_bg)
-    ImageView mAboutBg;
+//    @Bind(R.id.about_bg)
+//    ImageView mAboutBg;
 
 
     @Override
@@ -44,19 +41,6 @@ public class AboutActivity extends StatusBarActivity {
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
         mAboutTvVersion.setText("1.5正式版");
 
-        Random random = new Random();
-        switch (random.nextInt(3)) {
-            case 0:
-                mAboutBg.setImageResource(R.mipmap.bg_1);
-                break;
-            case 1:
-                mAboutBg.setImageResource(R.mipmap.bg_2);
-                break;
-            case 2:
-                mAboutBg.setImageResource(R.mipmap.bg_3);
-                break;
-
-        }
     }
 
 

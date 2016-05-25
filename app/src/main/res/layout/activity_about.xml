@@ -25,9 +25,10 @@
             <ImageView
                 android:id="@+id/about_bg"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="200dp"
                 android:adjustViewBounds="true"
                 android:fitsSystemWindows="true"
+                android:src="@mipmap/bg_1"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"/>
 
