@@ -1,9 +1,8 @@
 package com.king.applock.ui;
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,8 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -38,8 +35,8 @@ import com.king.applock.service.WatchDogService;
 import com.king.applock.utils.AppUtil;
 import com.king.applock.utils.RefreshLayoutUtils;
 import com.king.applock.utils.ServiceUtil;
+import com.king.applock.utils.StatusBarCompat;
 import com.king.applock.utils.ThreadTask;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     ImageView mMainNavBtnThemeDark;
     @Bind(R.id.rl_bg)
     RelativeLayout mRlBg;
+
     private Toolbar mToolbar;
     private TabLayout mTab;
     private RecyclerView mRecyclerView;
@@ -150,12 +148,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void statusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);//通知栏所需颜色
-        }
+        StatusBarCompat.setStatusBarColor(this, Color.parseColor("#0288D1"));
+        StatusBarCompat.translucentStatusBar(this);
     }
 
     @Override
@@ -258,18 +252,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

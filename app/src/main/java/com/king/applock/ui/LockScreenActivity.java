@@ -1,14 +1,11 @@
 package com.king.applock.ui;
 
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -18,7 +15,7 @@ import com.king.applock.R;
 import com.king.applock.bean.AppInfo;
 import com.king.applock.utils.AppUtil;
 import com.king.applock.utils.SPUtils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.king.applock.utils.StatusBarCompat;
 
 
 public class LockScreenActivity extends AppLockActivity {
@@ -34,32 +31,17 @@ public class LockScreenActivity extends AppLockActivity {
             isfirst = true;
             setType(AppLock.ENABLE_PINLOCK);
         }
-        super.onCreate(savedInstanceState);
         statusBar();
+        super.onCreate(savedInstanceState);
+
         initData();
     }
 
     private void statusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.colorPrimaryDark);//通知栏所需颜色
-        }
+        StatusBarCompat.setStatusBarColor(this,  Color.parseColor("#0288D1"));
+        StatusBarCompat.translucentStatusBar(this);
     }
 
-    @TargetApi(19)
-    private void setTranslucentStatus(boolean on) {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
-        final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-        if (on) {
-            winParams.flags |= bits;
-        } else {
-            winParams.flags &= ~bits;
-        }
-        win.setAttributes(winParams);
-    }
 
 
     @Override
